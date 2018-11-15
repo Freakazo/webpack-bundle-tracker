@@ -80,6 +80,10 @@ Plugin.prototype.apply = function(compiler) {
       var entries = {};
       stats.compilation.chunkGroups.forEach(function (chunkGroup) {
         var files = chunkGroup.getFiles().map(function (file) {
+          var publicPath = self.options.publicPath || compiler.options.output.publicPath;
+          if (publicPath) {
+            return publicPath + file;
+          }
           if (compiler.options.output.path) {
             return path.join(compiler.options.output.path, file);
           }
